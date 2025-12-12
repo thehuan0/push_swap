@@ -1,25 +1,109 @@
 *This project has been created as part of the 42 curriculum by jperez-s*
 
-# Description
-This project consists of sorting data in a stack using a limited set of instructions, aiming to achieve the lowest possible number of actions. While learning about sorting algorithms and their complexity.
-The following are the set of instructions available to move around the numbers between stack A and stack B:
-- sa (swap a): Swap the first 2 elements at the top of stack a.
-- sb (swap b): Swap the first 2 elements at the top of stack b.
-- ss : sa and sb at the same time.
-- pa (push a): Take the first element at the top of b and put it at the top of a.
-- pb (push b): Take the first element at the top of a and put it at the top of b.
-- ra (rotate a): Shift up all elements of stack a by 1.
-- rb (rotate b): Shift up all elements of stack b by 1.
-- rr : ra and rb at the same time.
-- rra (reverse rotate a): Shift down all elements of stack a by 1.
-- rrb (reverse rotate b): Shift down all elements of stack b by 1.
-- rrr : rra and rrb at the same time.
+# Push_swap
 
-# Instructions
-First of all the proyect needs to be compiled with a Makefile using the rule 'make', that gives us a program called 'push_swap' which receives a set of arguments as an input; example (./push_swap 42 -42 0).
-The output or result of the program is a set of instructions by which the stack A is sorted by using stack B as well, for the previous input the output will be: 'ra'.
-Furthermore the output can be checked by later compiling the 'checker' with the rule in the Makefile 'bonus', this program takes the output from the push_swap program, execute all instructions and validate that all the numbers are in stack A and that stack B is empty. If the rules are correct and the conditions are met the program will display 'OK' else it will display 'KO'.
-Both programs will display 'Error' followed by a newline if the arguments passed are not valid (duplicate numbers, outside the range of int, and if non numeric characters are placed).
+## Description
 
-# Resources
-The main resources are from Wikipedia about the complexity of algorithms, blogs explaining different cases as well as youtube videos, and the use of AI to create and test limit cases such as long long int which overflowed and ended up passing as arguments, also to understand.
+Push_swap is a sorting algorithm project that challenges you to sort data on a stack using a limited set of instructions, aiming to achieve the lowest possible number of operations. The project deepens understanding of sorting algorithms and their complexity.
+
+The program receives a list of integers as arguments and outputs a sequence of operations that sort them in ascending order on stack A, using stack B as an auxiliary stack.
+
+### Available Operations
+
+- **sa** (swap a): Swap the first 2 elements at the top of stack A
+- **sb** (swap b): Swap the first 2 elements at the top of stack B
+- **ss**: Execute sa and sb at the same time
+- **pa** (push a): Take the first element at the top of B and put it at the top of A
+- **pb** (push b): Take the first element at the top of A and put it at the top of B
+- **ra** (rotate a): Shift up all elements of stack A by 1 (first becomes last)
+- **rb** (rotate b): Shift up all elements of stack B by 1
+- **rr**: Execute ra and rb at the same time
+- **rra** (reverse rotate a): Shift down all elements of stack A by 1 (last becomes first)
+- **rrb** (reverse rotate b): Shift down all elements of stack B by 1
+- **rrr**: Execute rra and rrb at the same time
+
+## Instructions
+
+### Compilation
+
+Compile the project using the provided Makefile:
+
+```bash
+make
+```
+
+This generates the `push_swap` executable.
+
+For the bonus checker program:
+
+```bash
+make bonus
+```
+
+This generates the `checker` executable.
+
+### Usage
+
+Run the program with a list of integers as arguments:
+
+```bash
+./push_swap 4 67 3 87 23
+```
+
+The program outputs the sequence of operations needed to sort the numbers.
+
+### Verification with Checker
+
+To verify that the operations correctly sort the stack:
+
+```bash
+./push_swap 4 2 1 3 | ./checker 4 2 1 3
+```
+
+The checker program will output:
+- `OK` if stack A is sorted in ascending order and stack B is empty
+- `KO` if the result is incorrect
+- `Error` if invalid arguments are provided
+
+### Error Handling
+
+Both programs display `Error` followed by a newline when:
+- Duplicate numbers are provided
+- Arguments are outside the integer range (INT_MIN to INT_MAX)
+- Non-numeric characters are provided
+
+### Examples
+
+```bash
+# Sort a small set
+./push_swap 2 1 3
+
+# Sort with negative numbers
+./push_swap -42 0 42 -10
+
+# Verify the output
+./push_swap 5 4 3 2 1 | ./checker 5 4 3 2 1
+
+# Count operations
+./push_swap 4 2 1 3 | wc -l
+```
+
+## Resources
+
+### Classic References
+
+- Sorting Algorithms - Wikipedia: Overview of various sorting algorithms and their complexity
+- Big O Notation - Wikipedia: Understanding algorithm complexity
+- Various blog posts and tutorials on stack-based sorting algorithms
+- YouTube videos explaining different sorting approaches and optimization techniques
+
+### AI Usage
+
+AI tools were used for the following tasks:
+
+- **Testing edge cases**: Generation and testing of limit cases such as LONG_MAX and LONG_MIN values that overflow and need proper handling
+- **Understanding complexity**: Clarification of time and space complexity concepts for different algorithmic approaches
+- **Debugging assistance**: Identifying issues with integer overflow handling and validation logic
+- **Code review**: Suggestions for optimization and cleaner implementation patterns
+
+🥭
