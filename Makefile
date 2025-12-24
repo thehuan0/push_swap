@@ -3,33 +3,34 @@ BONUS_NAME = checker
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
+RM = rm -rf
+
+OBJDIR = bin
+INCLUDES = -Iincludes
 
 # Push_swap sources
 SRCS = srcs/main.c srcs/ft_atoi.c srcs/utils.c srcs/utils2.c \
-	   srcs/stack_init.c srcs/stack_utils.c srcs/index.c \
-	   srcs/swap.c srcs/push.c srcs/rotate.c srcs/reverse_rotate.c \
-	   srcs/sort_small.c srcs/sort_utils.c srcs/position.c \
-	   srcs/cost.c srcs/cost_utils.c srcs/sort.c srcs/sort_big.c \
-	   srcs/ft_strcmp.c
+       srcs/stack_init.c srcs/stack_utils.c srcs/index.c \
+       srcs/swap.c srcs/push.c srcs/rotate.c srcs/reverse_rotate.c \
+       srcs/sort_small.c srcs/sort_utils.c srcs/position.c \
+       srcs/cost.c srcs/cost_utils.c srcs/sort.c srcs/sort_big.c \
+       srcs/ft_strcmp.c
 
-# Checker sources (with simple GNL split into two files)
-CHECK_SRCS = check/checker.c check/checker_gnl.c check/checker_gnl2.c
+# Checker sources
+CHECK_SRCS = check/checker.c check/get_next_line.c check/get_next_line_utils.c
 
-# Common sources needed for both
+# Common sources
 COMMON_SRCS = srcs/ft_atoi.c srcs/utils.c srcs/utils2.c \
-			  srcs/stack_init.c srcs/stack_utils.c srcs/index.c \
-			  srcs/swap.c srcs/push.c srcs/rotate.c srcs/reverse_rotate.c \
-			  srcs/sort_small.c srcs/sort_utils.c srcs/position.c \
-			  srcs/cost.c srcs/cost_utils.c srcs/sort.c srcs/sort_big.c \
-			  srcs/ft_strcmp.c
+              srcs/stack_init.c srcs/stack_utils.c srcs/index.c \
+              srcs/swap.c srcs/push.c srcs/rotate.c srcs/reverse_rotate.c \
+              srcs/sort_small.c srcs/sort_utils.c srcs/position.c \
+              srcs/cost.c srcs/cost_utils.c srcs/sort.c srcs/sort_big.c \
+              srcs/ft_strcmp.c
 
-# Object files
-OBJS = $(SRCS:.c=.o)
-CHECK_OBJS = $(CHECK_SRCS:.c=.o)
-COMMON_OBJS = $(COMMON_SRCS:.c=.o)
-
-INCLUDES = -Iincludes
+# Object files (mapped to bin/)
+OBJS = $(SRCS:%.c=$(OBJDIR)/%.o)
+CHECK_OBJS = $(CHECK_SRCS:%.c=$(OBJDIR)/%.o)
+COMMON_OBJS = $(COMMON_SRCS:%.c=$(OBJDIR)/%.o)
 
 all: $(NAME)
 
@@ -41,11 +42,13 @@ bonus: $(BONUS_NAME)
 $(BONUS_NAME): $(CHECK_OBJS) $(COMMON_OBJS)
 	$(CC) $(CFLAGS) $(CHECK_OBJS) $(COMMON_OBJS) -o $(BONUS_NAME)
 
-%.o: %.c
+# Compile rule with directory creation
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS) $(CHECK_OBJS) $(COMMON_OBJS)
+	$(RM) $(OBJDIR)
 
 fclean: clean
 	$(RM) $(NAME) $(BONUS_NAME)

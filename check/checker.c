@@ -6,12 +6,12 @@
 /*   By: jperez-s <jperez-s@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 19:12:08 by jperez-s          #+#    #+#             */
-/*   Updated: 2025/12/03 12:17:58 by jperez-s         ###   ########.fr       */
+/*   Updated: 2025/12/24 19:50:49 by jperez-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "checker_gnl.h"
+#include "checker.h"
 
 static void	execute_instruction_2(char *line, t_stack **a, t_stack **b)
 {
